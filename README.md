@@ -26,8 +26,6 @@
 
 ## Usage
 
-## Usage
-
 1. Run the application:
     ```bash
     python manage.py runserver
