@@ -23,6 +23,10 @@
     ```bash
     pip install -r requirements.txt
     ```
+4. Create a `.env` file with the following content:
+    ```env
+    THEMOVIEDB_API_KEY=<your_themoviedb_api_key>
+    ```
 
 ## Usage
 
