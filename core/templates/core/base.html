@@ -16,7 +16,7 @@
             <a href="{%url 'authentication:logout'%}" class="rounded-xl py-3 px-6 bg-cyan-500 text-white hover:bg-cyan-700">Logout</a>
             {% else %}
             <a href="{% url "authentication:login" %}" class="rounded-xl py-3 px-6 bg-cyan-500 text-white hover:bg-cyan-700">Login</a>
-            <a href="#" class="rounded-xl py-3 px-6 bg-cyan-500 text-white hover:bg-cyan-700">Sign up</a>
+            <a href="{% url "authentication:signup" %}" class="rounded-xl py-3 px-6 bg-cyan-500 text-white hover:bg-cyan-700">Sign up</a>
             {% endif %}
         </div>
     </div>

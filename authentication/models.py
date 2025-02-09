@@ -5,5 +5,5 @@ from django.db import models
 
 class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
-    profile_image=models.ImageField(upload_to='profile_images',blank=True,null=True)
+    profile_image=models.ImageField(upload_to='profile_images/',blank=True,null=True)
     
