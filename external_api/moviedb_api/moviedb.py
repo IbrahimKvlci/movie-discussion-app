@@ -19,6 +19,14 @@ def get_top_movies(page):
 
     return response.json()['results']
 
+def get_movie_by_id(id):
+    url = "https://api.themoviedb.org/3/movie/"+str(id)+"?language=en-US"
+    response = requests.get(url, headers=headers)
+
+    if not response.ok:
+        raise ConnectionError()
+    
+    return response.json()
 
 
 if __name__=="__main__":
