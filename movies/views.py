@@ -1,4 +1,7 @@
 from django.shortcuts import render,redirect
+from django.contrib.auth.decorators import login_required 
+
+from django.contrib import messages
 
 from external_api.moviedb_api import moviedb
 
@@ -8,7 +11,9 @@ from .models import UserMovie
 
 def detail(request,movie_id):
     movie=moviedb.get_movie_by_id(movie_id)
-    user_movie=UserMovie.objects.get(movie_id=movie_id,user=request.user)
+    user_movie=None
+    if request.user.is_authenticated:
+        user_movie=UserMovie.objects.get(movie_id=movie_id,user=request.user)
 
     likes=UserMovie.objects.filter(is_like=True).count()
     dislikes=UserMovie.objects.filter(is_like=False).count()
@@ -31,6 +36,7 @@ def detail(request,movie_id):
         }
     })
 
+@login_required
 def like(request,movie_id):
     user_movie, created = UserMovie.objects.get_or_create(movie_id=movie_id, user=request.user)
     if user_movie.is_like:
@@ -42,6 +48,7 @@ def like(request,movie_id):
 
     return redirect('movies:detail',movie_id)
 
+@login_required
 def dislike(request,movie_id):
     user_movie, created = UserMovie.objects.get_or_create(movie_id=movie_id, user=request.user)
     if user_movie.is_like==False:
@@ -53,6 +60,7 @@ def dislike(request,movie_id):
 
     return redirect('movies:detail',movie_id)
 
+@login_required
 def favorite(request,movie_id):
     user_movie, created = UserMovie.objects.get_or_create(movie_id=movie_id, user=request.user)
     if user_movie.is_favorite:
