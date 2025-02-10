@@ -27,6 +27,10 @@
     ```env
     THEMOVIEDB_API_KEY=<your_themoviedb_api_key>
     ```
+5. Apply the migrations to the database:
+    ```bash
+    python manage.py migrate
+    ```
 
 ## Usage
 
