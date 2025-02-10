@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('core.urls')),
     path('auth/',include('authentication.urls')),
-    path('movies/',include('movies.urls'))
+    path('movies/',include('movies.urls')),
+    path('movies/rooms/',include('conversationrooms.urls'))
 ]
