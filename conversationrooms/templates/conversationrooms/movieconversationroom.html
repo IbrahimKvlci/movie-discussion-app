@@ -1,0 +1,37 @@
+{% extends "core/base.html" %}
+{% block title %}Movie Name Room{% endblock title %}
+{% block content %}
+    <div class="px-6 py-10">
+        <div class="min-h-170">
+            {%for message in conversation_messages%}
+            <div class="flex items-center justify-center space-x-2 mb-5">
+                {%if message.member != user%}
+                <div class="inline-block"> 
+                    <img class="rounded-full ring-1 ring-indigo-500 w-20 h-20"  src="{{message.member.profile.profile_image.url}}" alt="">
+                </div>
+                {%endif%}
+                <div class="w-440 inline-block px-5 py-3 grid {%if message.member == user%} justify-items-end {%endif%} items-center bg-gray-200 rounded-xl">
+                    <p class="text-sm text-gray-500 mb-2">{{message.member.username}}</p>
+                    <p class="text-lg mb-2 text-black">{{message.content}}</p>
+                </div>
+                {%if message.member == user%}
+                <div class="inline-block"> 
+                    <img class="rounded-full ring-1 ring-indigo-500 w-20 h-20"  src="{{message.member.profile.profile_image.url}}" alt="">
+                </div>
+                {%endif%}
+            </div>
+            {%endfor%}
+        </div>
+        <div>
+            <form action="." method="post">
+                {%csrf_token%}
+                {{form.as_p}}
+    
+                <div class="grid justify-items-end">
+                    <input type="submit" value="Send" class="mt-5 py-3 px-8 text-lg bg-cyan-500 rounded-xl text-white hover:bg-cyan-700 cursor-pointer">
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

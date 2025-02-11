@@ -54,7 +54,7 @@
         <div class="grid grid-cols-6 gap-3 mt-6 mx-6">
             {%for room in rooms%}
             <div>
-                <a href="#" class="inline-block">
+                <a href="{%url 'conversationrooms:conversation_room' movie.id room.pk%}" class="inline-block">
                     <div class="w-70 h-110 bg-cyan-500 flex justify-center items-center rounded-xl hover:bg-cyan-700">
                         <p class="text-4xl text-white">{{room.room_name}}</p>
                     </div>

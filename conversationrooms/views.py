@@ -1,10 +1,13 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required 
+
 from .models import ConversationRoom,ConversationRoomMessage
+from .forms import ConversationMessageForm
 
 from external_api.moviedb_api import moviedb
 
 from movies.models import UserMovie
+from authentication.models import Profile
 
 
 # Create your views here.
@@ -47,4 +50,26 @@ def rooms(request,movie_id):
             'is_favorite':is_favorite,
         },
         'rooms':movie_rooms
+    })
+
+def conversation_room(request,room_pk,movie_id):
+    conversation_messages=ConversationRoom.objects.get(pk=room_pk).conversation_room_messages.all()
+    if request.method=="POST":
+        form=ConversationMessageForm(request.POST)
+
+        if form.is_valid():
+            conversation_message=form.save(commit=False)
+            conversation_message.conversation_room=ConversationRoom.objects.get(pk=room_pk)
+            conversation_message.member=request.user
+
+            conversation_message.save()
+            return redirect('conversationrooms:conversation_room', movie_id=movie_id, room_pk=room_pk)
+    
+    else:
+        form=ConversationMessageForm()
+
+
+    return render(request,'conversationrooms/movieconversationroom.html',{
+        'form':form,
+        'conversation_messages':conversation_messages,
     })
